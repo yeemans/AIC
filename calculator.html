@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calculator</title>
+        <meta charset="utf-8">
+        <script src="math.js" type="text/javascript"></script>
+        <link rel="icon" href="yee.jpg">
+        <style>
+            #calculator {
+                width: 300px;
+                height: 435px;
+                padding-top: 0px;
+
+                border-color: black;
+                border-style: solid;
+                border-width: 1px;
+                border-radius: 25px;
+                background-color: aquamarine;
+
+            }
+            #display {
+                margin-top: 0px;
+                width: 300px;
+                height: 60px;
+                background-color: aquamarine;
+                color: black;
+                font-size: 3em;
+                border-color: black;
+                border-style: solid;
+                border-width: 1px;
+                border-radius: 25px;
+
+            }
+            body {
+              background: #F5DFC7;
+              display: grid;
+              align-items: center;
+              justify-content: center;
+            }
+            .operator {
+              background-color: rgb(230,230,255);
+            }
+
+            button {
+                height: 60px;
+                width: 75px;
+                background-color: white;
+                color: black;
+                font-size: 1.5em;
+                display:inline-block;
+                margin-right: -4px;
+                text-align: center;
+                font-family: "MuseoModerno";
+            }
+
+            button:hover {
+              background-color: yellow;
+            }
+
+            .displayed_numbers {
+              font-size: 2em;
+              margin-bottom: 0px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="calculator">
+            <div id="display"></div>
+                <button class = "operator" onclick="clear_calculator()">C</button>
+                <button class="operator" onclick="key_pressed('%')">%</button>
+                <button class = "operator" onclick="key_pressed('.')">.</button>
+                <button class = "operator" onclick="key_pressed('/')">/</button>
+                <button onclick="key_pressed('7')">7</button>
+                <button onclick="key_pressed('8')">8</button>
+                <button onclick="key_pressed('9')">9</button>
+                <button class = "operator" onclick="key_pressed('*')">X</button>
+                <button onclick="key_pressed('4')">4</button>
+                <button onclick="key_pressed('5')">5</button>
+                <button onclick="key_pressed('6')">6</button>
+                <button class = "operator" onclick="key_pressed('-')">-</button>
+                <button onclick="key_pressed('1')">1</button>
+                <button onclick="key_pressed('2')">2</button>
+                <button onclick="key_pressed('3')">3</button>
+                <button class = "operator" onclick="key_pressed('+')">+</button>
+                <button onclick="key_pressed('0')">0</button>
+                <button class = "operator" onclick="square_root()">sqrt</button>
+                <button class = "operator" onclick="key_pressed('3.141592')">pi</button>
+                <button class = "operator" onclick="calculate()">=</button>
+        </div>
+        <script>
+            var input_string = "";
+            var key = "";
+
+            var pressed_equal_last = false;
+            function key_pressed(x) {
+                key = x;
+
+                add_to_inputs();
+            }
+
+            function clear_calculator() {
+                input_string = "";
+                display.innerHTML = "";
+                console.log(input_string);
+                pressed_equal_last = false;
+
+            }
+            function make_negative() {
+                if (input_string != 0 && input_string != "" )
+                {
+                    input_string = math.evaluate(input_string);
+                    input_string = Math.round(input_string*100000000)/100000000; // 1 instead of 1.01
+                    input_string *= -1;
+                    console.log(input_string);
+                    display.innerHTML = input_string;
+                }
+            }
+
+            function square_root() {
+                input_string = math.evaluate(input_string);
+                input_string = Math.round(input_string*100000000)/100000000; // 1 instead of 1.01
+                input_string = input_string ** 0.5;
+                console.log(input_string);
+                key = "**0.5";
+                display.innerHTML = key;
+            }
+
+            function add_to_inputs() {
+                if (input_string == "Cannot divide by 0")
+                {
+                    input_string = key;
+                }
+                input_string += key;
+
+                if (pressed_equal_last && key != "+" && key != "-" && key != "*" && key != "/"
+              && key != "%")
+                {
+                    input_string = key;
+                }
+
+                display.innerHTML = key;
+                pressed_equal_last = false;
+            }
+            function calculate() {
+                //check if the button pressed right after = is an operator or number
+                pressed_equal_last = true;
+                input_string = math.evaluate(input_string); //evaluates a string as equation
+                input_string = Math.round(input_string*100000000)/100000000; // 1 instead of 1.01
+                console.log(input_string);
+                if (input_string == Infinity)
+                {
+                    input_string = "Cannot divide by 0";
+                }
+                if (input_string == NaN)
+                {
+                    input_string = 0;
+                }
+              display.innerHTML = input_string;
+                //resolve the error when putting a number after seeing the result does not replace it
+
+            }
+
+
+
+        </script>
+    </body>
+</html>

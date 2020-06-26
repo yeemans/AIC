@@ -1,0 +1,50 @@
+body{
+  padding: 2em;
+  background-image:linear-gradient(to right, #C5DDED, #E4E4E0, #FFF0E3);
+  text-align: center;
+}
+
+div p{
+  line-height: 2em;
+  text-indent: 3em;
+  max-width: 800px;
+  padding: 3em 5em;
+}
+
+
+div{
+  display: inline-block;
+  padding: auto;
+  text-align: left;
+}
+
+footer, footer a{
+  text-indent: none;
+  text-decoration: none;
+  color: black;
+  padding-top: 5em;;
+}
+form{
+    line-height: 1.5em;
+    display: inline-block;
+    text-align: left;
+    padding: 2em 8em;
+    border: 2px solid darkgray;
+    border-radius: 2em;
+  }
+
+form p{
+  display: block;
+}
+
+img{
+  height: 200px;
+  margin: 1.5em;
+  float: left;
+  border: 2px solid gray;
+  border-radius: 10em;
+}
+
+img:hover{
+  border: 2px solid black;
+}
